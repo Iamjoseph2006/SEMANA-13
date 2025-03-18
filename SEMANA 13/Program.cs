@@ -1,87 +1,131 @@
 ﻿using System;
 
+class Nodo
+{
+    public string Clave;  // La clave es el título de la revista
+    public Nodo Izquierdo, Derecho;  // Referencias a los subárboles izquierdo y derecho
+
+    public Nodo(string clave)
+    {
+        Clave = clave;  // Asigna el título al nodo
+        Izquierdo = Derecho = null;  // Inicializa los hijos como nulos
+    }
+}
+
+class ArbolBinarioBusqueda
+{
+    private Nodo raiz;  // Nodo raíz del árbol
+
+    // Método para insertar un nuevo título en el árbol
+    public void Insertar(string clave)
+    {
+        raiz = InsertarRec(raiz, clave);
+    }
+
+    // Método recursivo para insertar un nodo en la posición correcta
+    private Nodo InsertarRec(Nodo nodo, string clave)
+    {
+        if (nodo == null)  // Si el nodo actual es nulo, crea un nuevo nodo con la clave
+            return new Nodo(clave);
+
+        // Compara el título con el nodo actual para decidir en qué subárbol insertarlo
+        if (string.Compare(clave, nodo.Clave, StringComparison.OrdinalIgnoreCase) < 0)
+            nodo.Izquierdo = InsertarRec(nodo.Izquierdo, clave);  // Inserta en el subárbol izquierdo si es menor
+        else if (string.Compare(clave, nodo.Clave, StringComparison.OrdinalIgnoreCase) > 0)
+            nodo.Derecho = InsertarRec(nodo.Derecho, clave);  // Inserta en el subárbol derecho si es mayor
+
+        return nodo;  // Retorna el nodo actualizado
+    }
+
+    // Método para mostrar los títulos ordenados (Recorrido Inorden)
+    public void MostrarOrdenados()
+    {
+        Console.WriteLine("\nTítulos de revistas ordenados:");
+        Inorden(raiz);
+        Console.WriteLine();
+    }
+
+    // Método recursivo para recorrer el árbol en orden (izquierda - raíz - derecha)
+    private void Inorden(Nodo nodo)
+    {
+        if (nodo != null)
+        {
+            Inorden(nodo.Izquierdo);  // Recorre el subárbol izquierdo
+            Console.WriteLine(nodo.Clave);  // Muestra el título del nodo actual
+            Inorden(nodo.Derecho);  // Recorre el subárbol derecho
+        }
+    }
+
+    // Método para buscar un título en el árbol
+    public bool Buscar(string clave)
+    {
+        return BuscarRec(raiz, clave);
+    }
+
+    // Método recursivo para buscar un título en el árbol
+    private bool BuscarRec(Nodo nodo, string clave)
+    {
+        if (nodo == null)
+            return false;  // El título no fue encontrado
+
+        // Compara el título con el nodo actual para decidir en qué subárbol buscarlo
+        if (string.Compare(clave, nodo.Clave, StringComparison.OrdinalIgnoreCase) < 0)
+            return BuscarRec(nodo.Izquierdo, clave);  // Busca en el subárbol izquierdo si es menor
+        else if (string.Compare(clave, nodo.Clave, StringComparison.OrdinalIgnoreCase) > 0)
+            return BuscarRec(nodo.Derecho, clave);  // Busca en el subárbol derecho si es mayor
+        else
+            return true;  // El título fue encontrado
+    }
+}
+
 class Program
 {
     static void Main()
     {
-        // Declaramos un array de 10 posiciones para almacenar los títulos de las revistas
-        string[] catalogo = new string[10];
+        ArbolBinarioBusqueda arbol = new ArbolBinarioBusqueda();  // Crea el árbol binario
 
-        // Solicitamos al usuario que ingrese los 10 títulos de revistas
+        // Ingresar 10 títulos de revistas
         Console.WriteLine("Ingrese 10 títulos de revistas:");
         for (int i = 0; i < 10; i++)
         {
-            Console.Write($"Título {i + 1}: "); // Pedimos cada título
-            catalogo[i] = Console.ReadLine();  // Guardamos el título en el array
+            Console.Write($"Título {i + 1}: ");
+            string clave = Console.ReadLine();  // Captura el título ingresado por el usuario
+            arbol.Insertar(clave);  // Inserta el título en el árbol
         }
 
-        // Bucle infinito para mostrar el menú hasta que el usuario decida salir
-        while (true)
+        // Mostrar los títulos ordenados
+        arbol.MostrarOrdenados();
+
+        // Menú de búsqueda
+        bool continuar = true;
+        while (continuar)
         {
-            // Mostramos el menú de opciones
-            Console.WriteLine("\nMenú:");
-            Console.WriteLine("1. Buscar un título (Iterativa)");
-            Console.WriteLine("2. Buscar un título (Recursiva)");
-            Console.WriteLine("3. Salir");
-            Console.Write("Seleccione una opción: ");
+            Console.WriteLine("\nSeleccione una opción:");
+            Console.WriteLine("1. Buscar un título");
+            Console.WriteLine("2. Salir");
+            Console.Write("Opción: ");
+            string opcion = Console.ReadLine();
 
-            // Leemos la opción ingresada por el usuario
-            int opcion = int.Parse(Console.ReadLine());
-
-            // Si la opción es 3, terminamos el programa
-            if (opcion == 3) break;
-
-            // Pedimos al usuario el título que desea buscar
-            Console.Write("Ingrese el título a buscar: ");
-            string titulo = Console.ReadLine();
-
-            // Variable para almacenar si el título fue encontrado o no
-            bool encontrado = false;
-
-            // Dependiendo de la opción elegida, usamos búsqueda iterativa o recursiva
             switch (opcion)
             {
-                case 1:
-                    encontrado = BusquedaIterativa(catalogo, titulo); // Llamamos a la búsqueda iterativa
+                case "1":
+                    // Buscar un título
+                    Console.Write("Ingrese el título a buscar: ");
+                    string buscarTitulo = Console.ReadLine();
+                    if (arbol.Buscar(buscarTitulo))
+                        Console.WriteLine("Título encontrado.");
+                    else
+                        Console.WriteLine("Título no encontrado.");
                     break;
-                case 2:
-                    encontrado = BusquedaRecursiva(catalogo, titulo, 0); // Llamamos a la búsqueda recursiva
+
+                case "2":
+                    continuar = false;
                     break;
+
                 default:
-                    Console.WriteLine("Opción no válida."); // Si la opción no es válida, lo indicamos
-                    continue; // Volvemos al inicio del menú
-            }
-
-            // Mostramos si el título fue encontrado o no
-            Console.WriteLine(encontrado ? "Encontrado" : "No encontrado");
-        }
-    }
-
-    // Método para realizar la búsqueda iterativa
-    static bool BusquedaIterativa(string[] catalogo, string titulo)
-    {
-        // Recorremos cada elemento del catálogo
-        foreach (string item in catalogo)
-        {
-            // Comparamos el título ignorando mayúsculas y minúsculas
-            if (item.Equals(titulo, StringComparison.OrdinalIgnoreCase))
-            {
-                return true; // Si encontramos el título, retornamos true
+                    Console.WriteLine("Opción no válida. Intente nuevamente.");
+                    break;
             }
         }
-        return false; // Si no encontramos el título, retornamos false
-    }
-
-    // Método para realizar la búsqueda recursiva
-    static bool BusquedaRecursiva(string[] catalogo, string titulo, int indice)
-    {
-        // Si llegamos al final del array sin encontrar el título, retornamos false
-        if (indice >= catalogo.Length) return false;
-
-        // Comparamos el título actual con el buscado
-        if (catalogo[indice].Equals(titulo, StringComparison.OrdinalIgnoreCase)) return true;
-
-        // Llamamos recursivamente a la función con el siguiente índice
-        return BusquedaRecursiva(catalogo, titulo, indice + 1);
     }
 }
