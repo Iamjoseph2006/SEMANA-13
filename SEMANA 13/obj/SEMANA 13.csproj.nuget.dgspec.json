@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\DELL\\Downloads\\UEA 2025\\SEMANA 13\\SEMANA-13-1\\SEMANA 13\\SEMANA 13.csproj": {}
+    "C:\\Users\\DELL\\Downloads\\UEA 2025\\Nueva carpeta\\SEMANA-13\\SEMANA 13\\SEMANA 13.csproj": {}
   },
   "projects": {
-    "C:\\Users\\DELL\\Downloads\\UEA 2025\\SEMANA 13\\SEMANA-13-1\\SEMANA 13\\SEMANA 13.csproj": {
+    "C:\\Users\\DELL\\Downloads\\UEA 2025\\Nueva carpeta\\SEMANA-13\\SEMANA 13\\SEMANA 13.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\DELL\\Downloads\\UEA 2025\\SEMANA 13\\SEMANA-13-1\\SEMANA 13\\SEMANA 13.csproj",
+        "projectUniqueName": "C:\\Users\\DELL\\Downloads\\UEA 2025\\Nueva carpeta\\SEMANA-13\\SEMANA 13\\SEMANA 13.csproj",
         "projectName": "SEMANA 13",
-        "projectPath": "C:\\Users\\DELL\\Downloads\\UEA 2025\\SEMANA 13\\SEMANA-13-1\\SEMANA 13\\SEMANA 13.csproj",
+        "projectPath": "C:\\Users\\DELL\\Downloads\\UEA 2025\\Nueva carpeta\\SEMANA-13\\SEMANA 13\\SEMANA 13.csproj",
         "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\DELL\\Downloads\\UEA 2025\\SEMANA 13\\SEMANA-13-1\\SEMANA 13\\obj\\",
+        "outputPath": "C:\\Users\\DELL\\Downloads\\UEA 2025\\Nueva carpeta\\SEMANA-13\\SEMANA 13\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config"
