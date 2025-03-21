@@ -4,13 +4,15 @@
 public class Nodo
 {
     public string Valor;  // Almacena el valor del nodo (título de la revista)
-    public Nodo Izquierdo, Derecho;  // Referencias a los hijos izquierdo y derecho
+    public Nodo Izquierdo; // Hijo izquierdo del nodo
+    public Nodo  Derecho;  // Hijo derecho del nodo
 
     // Constructor que inicializa el nodo con un valor y sin hijos
     public Nodo(string valor)
     {
         Valor = valor;
-        Izquierdo = Derecho = null;
+        Izquierdo = null;
+        Derecho = null;
     }
 }
 
